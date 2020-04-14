@@ -7,7 +7,7 @@ import net.imglib2.RealRandomAccess;
 import net.imglib2.img.Img;
 import net.imglib2.img.array.ArrayImgFactory;
 import net.imglib2.img.display.imagej.ImageJFunctions;
-import net.imglib2.type.numeric.real.DoubleType;
+import net.imglib2.type.numeric.real.FloatType;
 
 public class CosineWavelet extends AngularWavelet {
 	
@@ -22,22 +22,22 @@ public class CosineWavelet extends AngularWavelet {
 	}
 	
 	@Override
-	public double angularFunction( final double theta )
+	public float angularFunction( final float theta )
 	{
-		return Math.cos(theta+angularOffset);
+		return (float)Math.cos(theta+angularOffset);
 	}
 	
 	public static void main( final String[] args )
 	{
 		final int[] dimensions = new int[] { 512, 512 };
-		final Img< DoubleType > img = new ArrayImgFactory<>( new DoubleType() ).create( dimensions );
+		final Img< FloatType > img = new ArrayImgFactory<>( new FloatType() ).create( dimensions );
 
-		final RealRandomAccess< DoubleType > rw = new CosineWavelet(257,257,1,2);
+		final RealRandomAccess< FloatType > rw = new CosineWavelet(257,257,1,2);
 
 		final double scale = 1;
 		final double[] offset = new double[] { 0,0 };
 
-		final Cursor< DoubleType > cursor = img.localizingCursor();
+		final Cursor< FloatType > cursor = img.localizingCursor();
 		while( cursor.hasNext() )
 		{
 			cursor.fwd();

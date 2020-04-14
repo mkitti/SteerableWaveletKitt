@@ -21,13 +21,12 @@ public class AngularWavelet extends PolarWavelet {
 	}
 	
 	@Override
-	public final double polarFunction( final double rc , final double theta) {
+	public final float polarFunction( final float rc , final float theta) {
 		return angularFunction(theta);
 	}
 	
-	public double angularFunction( final double theta )
+	public float angularFunction( final float theta )
 	{
-		System.out.println("Angular Function");
 		return theta;
 	}
 

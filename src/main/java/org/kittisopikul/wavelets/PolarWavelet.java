@@ -10,7 +10,7 @@ import net.imglib2.RealRandomAccess;
 import net.imglib2.img.Img;
 import net.imglib2.img.array.ArrayImgFactory;
 import net.imglib2.img.display.imagej.ImageJFunctions;
-import net.imglib2.type.numeric.real.DoubleType;
+import net.imglib2.type.numeric.real.FloatType;
 import net.imglib2.realtransform.InvertibleRealTransform;
 import net.imglib2.realtransform.ScaledPolarToTranslatedCartesianTransform2D;
 
@@ -19,16 +19,16 @@ import net.imglib2.realtransform.ScaledPolarToTranslatedCartesianTransform2D;
  * @author mkitti
  *
  */
-public class PolarWavelet extends RealPoint implements RealRandomAccess<DoubleType> {
+public class PolarWavelet extends RealPoint implements RealRandomAccess<FloatType> {
 	
-	final DoubleType t;
+	final FloatType t;
 	protected final InvertibleRealTransform transform;
 	final RealPoint polarCoords;
 
 	protected PolarWavelet(InvertibleRealTransform transform) {
 		super(2);
 		this.transform = transform;
-		this.t = new DoubleType();
+		this.t = new FloatType();
 		this.polarCoords = new RealPoint(2);
 		
 	}
@@ -44,7 +44,7 @@ public class PolarWavelet extends RealPoint implements RealRandomAccess<DoubleTy
 	
 	
 	@Override
-	public DoubleType get() {
+	public FloatType get() {
 		transform.applyInverse(polarCoords, this);
 		t.set(polarFunction(polarCoords));
 		return t;
@@ -62,12 +62,12 @@ public class PolarWavelet extends RealPoint implements RealRandomAccess<DoubleTy
 		return copy();
 	}
 	
-	public final double polarFunction( final RealLocalizable polarCoords)
+	public final float polarFunction( final RealLocalizable polarCoords)
 	{
-		return polarFunction(polarCoords.getDoublePosition(0),polarCoords.getDoublePosition(1));
+		return polarFunction(polarCoords.getFloatPosition(0),polarCoords.getFloatPosition(1));
 	}
 	
-	public double polarFunction( final double rc , final double theta)
+	public float polarFunction( final float rc , final float theta)
 	{
 		//System.out.println("radialFunction: " + rc);
 		return rc*theta;
@@ -76,9 +76,9 @@ public class PolarWavelet extends RealPoint implements RealRandomAccess<DoubleTy
 	public static void main( final String[] args )
 	{
 		final int[] dimensions = new int[] { 512, 512 };
-		final Img< DoubleType > img = new ArrayImgFactory<>( new DoubleType() ).create( dimensions );
+		final Img< FloatType > img = new ArrayImgFactory<>( new FloatType() ).create( dimensions );
 
-		final RealRandomAccess< DoubleType > rw = new PolarWavelet(257,257);
+		final RealRandomAccess< FloatType > rw = new PolarWavelet(257,257);
 
 		//final double scale = 0.000125;
 		//final double[] offset = new double[] { -1.3875, 0.045 };
@@ -86,7 +86,7 @@ public class PolarWavelet extends RealPoint implements RealRandomAccess<DoubleTy
 		final double scale = 1;
 		final double[] offset = new double[] { 0,0 };
 
-		final Cursor< DoubleType > cursor = img.localizingCursor();
+		final Cursor< FloatType > cursor = img.localizingCursor();
 		while( cursor.hasNext() )
 		{
 			cursor.fwd();

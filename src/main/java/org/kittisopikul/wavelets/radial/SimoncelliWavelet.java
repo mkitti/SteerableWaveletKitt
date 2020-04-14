@@ -5,7 +5,7 @@ import net.imglib2.RealRandomAccess;
 import net.imglib2.img.Img;
 import net.imglib2.img.array.ArrayImgFactory;
 import net.imglib2.img.display.imagej.ImageJFunctions;
-import net.imglib2.type.numeric.real.DoubleType;
+import net.imglib2.type.numeric.real.FloatType;
 
 public class SimoncelliWavelet extends RadialWavelet {
 	public SimoncelliWavelet(double tx,double ty,double sr, double st) {
@@ -24,14 +24,14 @@ public class SimoncelliWavelet extends RadialWavelet {
 	public static void main( final String[] args )
 	{
 		final int[] dimensions = new int[] { 512, 512 };
-		final Img< DoubleType > img = new ArrayImgFactory<>( new DoubleType() ).create( dimensions );
+		final Img< FloatType > img = new ArrayImgFactory<>( new FloatType() ).create( dimensions );
 
-		final RealRandomAccess< DoubleType > rw = new SimoncelliWavelet(257,257,8.0/512.0,1);
+		final RealRandomAccess< FloatType > rw = new SimoncelliWavelet(257,257,8.0/512.0,1);
 
 		final double scale = 1;
 		final double[] offset = new double[] { 0,0 };
 
-		final Cursor< DoubleType > cursor = img.localizingCursor();
+		final Cursor< FloatType > cursor = img.localizingCursor();
 		while( cursor.hasNext() )
 		{
 			cursor.fwd();

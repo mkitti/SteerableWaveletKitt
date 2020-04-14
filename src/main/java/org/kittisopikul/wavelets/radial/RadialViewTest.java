@@ -16,21 +16,20 @@ import net.imglib2.img.ImgFactory;
 import net.imglib2.img.array.ArrayImgFactory;
 import net.imglib2.img.display.imagej.ImageJFunctions;
 import net.imglib2.type.numeric.complex.ComplexFloatType;
-import net.imglib2.type.numeric.real.DoubleType;
 import net.imglib2.type.numeric.real.FloatType;
 
 public class RadialViewTest {
 	public static void main(String[] args)
 	{
 		final long[] dimensions = new long[] { 281, 281 };
-		final Img< DoubleType > img = new ArrayImgFactory<>( new DoubleType() ).create( dimensions );
+		final Img< FloatType > img = new ArrayImgFactory<>( new FloatType() ).create( dimensions );
 
-		final RealRandomAccess< DoubleType > rw = new VanGinkelWavelet(0,0,16.0/256.0,1);
+		final RealRandomAccess< FloatType > rw = new VanGinkelWavelet(0,0,32.0/281.0,1);
 
 		final double scale = 1;
 		final double[] offset = new double[] { 0,0 };
 
-		final Cursor< DoubleType > cursor = img.localizingCursor();
+		final Cursor< FloatType > cursor = img.localizingCursor();
 		while( cursor.hasNext() )
 		{
 			cursor.fwd();

@@ -11,7 +11,7 @@ import net.imglib2.img.Img;
 import net.imglib2.img.array.ArrayImgFactory;
 import net.imglib2.img.display.imagej.ImageJFunctions;
 import net.imglib2.type.numeric.integer.UnsignedByteType;
-import net.imglib2.type.numeric.real.DoubleType;
+import net.imglib2.type.numeric.real.FloatType;
 import net.imglib2.realtransform.PolarToCartesianTransform2D;
 import org.kittisopikul.wavelets.PolarWavelet;
 
@@ -30,11 +30,11 @@ public class RadialWavelet extends PolarWavelet {
 		super();
 	}
 	
-	public double polarFunction( final double rc , final double theta) {
+	public float polarFunction( final float rc , final float theta) {
 		return radialFunction(rc);
 	}
 	
-	public double radialFunction( final double rc )
+	public float radialFunction( final float rc )
 	{
 		return rc;
 	}
@@ -42,14 +42,14 @@ public class RadialWavelet extends PolarWavelet {
 	public static void main( final String[] args )
 	{
 		final int[] dimensions = new int[] { 512, 512 };
-		final Img< DoubleType > img = new ArrayImgFactory<>( new DoubleType() ).create( dimensions );
+		final Img< FloatType > img = new ArrayImgFactory<>( new FloatType() ).create( dimensions );
 
-		final RealRandomAccess< DoubleType > rw = new RadialWavelet(257,257,1,0.5);
+		final RealRandomAccess< FloatType > rw = new RadialWavelet(257,257,1,0.5);
 
 		final double scale = 1;
 		final double[] offset = new double[] { 0,0 };
 
-		final Cursor< DoubleType > cursor = img.localizingCursor();
+		final Cursor< FloatType > cursor = img.localizingCursor();
 		while( cursor.hasNext() )
 		{
 			cursor.fwd();

@@ -23,7 +23,6 @@ import net.imglib2.img.display.imagej.ImageJFunctions;
 import net.imglib2.realtransform.InvertibleRealTransform;
 import net.imglib2.realtransform.ScaledPolarToTranslatedCartesianTransform2D;
 import net.imglib2.type.numeric.complex.ComplexFloatType;
-import net.imglib2.type.numeric.real.DoubleType;
 import net.imglib2.type.numeric.real.FloatType;
 import net.imglib2.view.Views;
 import net.imglib2.converter.ComplexPowerFloatConverter;
@@ -55,30 +54,30 @@ public class PolarSeparableWavelet extends PolarWavelet {
 	}
 	
 	@Override
-	public DoubleType get() {
+	public FloatType get() {
 		transform.applyInverse(polarCoords, this);
 		t.set(polarFunction(polarCoords));
 		return t;
 	}
 	
-	public double polarFunction( final double rc , final double theta)
+	public float polarFunction( final float rc , final float theta)
 	{
 		return rw.radialFunction(rc)*aw.angularFunction(theta);
 	}
 	public static void main( final String[] args )
 	{
 		final int[] dimensions = new int[] {281, 281};
-		final Img< DoubleType > img = new ArrayImgFactory<>( new DoubleType() ).create( dimensions );
+		final Img< FloatType > img = new ArrayImgFactory<>( new FloatType() ).create( dimensions );
 
 		final AngularWavelet aw = new AngularGaussianWavelet(0.5/3.0);
 		//final RadialWavelet rw = new SimoncelliWavelet(0,0,8.0/512.0,2);
 		final RadialWavelet rw = new VanGinkelWavelet(0,0,16.0/256.0,1);
-		final RealRandomAccess< DoubleType > psw = new PolarSeparableWavelet(rw,aw);
+		final RealRandomAccess< FloatType > psw = new PolarSeparableWavelet(rw,aw);
 
 		final double scale = 1;
 		final double[] offset = new double[] { 0,0 };
 
-		final Cursor< DoubleType > cursor = img.localizingCursor();
+		final Cursor< FloatType > cursor = img.localizingCursor();
 		while( cursor.hasNext() )
 		{
 			cursor.fwd();
