@@ -30,7 +30,6 @@ public class PolarWavelet extends RealPoint implements RealRandomAccess<FloatTyp
 		this.transform = transform;
 		this.t = new FloatType();
 		this.polarCoords = new RealPoint(2);
-		
 	}
 	public PolarWavelet(double tx,double ty,double sr, double st) {
 		this(new ScaledPolarToTranslatedCartesianTransform2D(tx,ty,sr,st));
